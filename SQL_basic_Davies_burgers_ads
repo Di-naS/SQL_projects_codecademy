@@ -1,0 +1,7 @@
+select id as '#',
+special_instructions as 'Notes'
+from orders
+where special_instructions is not null
+and special_instructions like '%box%'
+order by special_instructions asc
+limit 20;
