@@ -1,0 +1,38 @@
+SELECT * FROM trips;
+
+SELECT * FROM riders;
+
+SELECT * FROM cars;
+
+--Try out a simple cross join between riders and cars
+SELECT trips.date, riders.username, cars.model
+FROM trips, riders, cars;
+/*Find the columns to join between trips and riders and combine the two tables using a LEFT JOIN.
+Let trips be the left table*/
+SELECT * FROM trips
+LEFT JOIN riders
+ON trips.rider_id = riders.id;
+--we want to create a link between the trips and the cars used during those trips
+SELECT * FROM trips
+INNER JOIN cars ON
+trips.car_id = cars.id;
+--Stack the riders table on top of the new table named riders2
+SELECT * FROM riders
+UNION
+SELECT * FROM riders2;
+--What is the average cost for a trip?
+SELECT AVG(cost) FROM trips;
+--Find all the riders who have used REBU less than 500 times
+WITH all_riders AS (
+SELECT * FROM riders
+UNION
+SELECT * FROM riders2)
+SELECT * FROM all_riders
+WHERE total_trips <500;
+--Calculate the number of cars that are active
+SELECT COUNT(*) FROM cars
+WHERE status = 'active';
+--Write a query that finds the two cars that have the highest trips_completed
+SELECT * FROM cars
+ORDER BY trips_completed DESC
+LIMIT 2;
